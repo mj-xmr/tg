@@ -27,7 +27,7 @@ AC_CHECK_HEADER(event2/event.h, [AC_DEFINE([EVENT_V2], [1], [Use libevent v2])],
   AC_CHECK_HEADER(event.h, [AC_DEFINE([EVENT_V1], [1], [Use libevent v1])], [AC_MSG_ERROR([no libevent found])])
   ])
 
-EXTRA_LIBS=""
+EXTRA_LIBS="-lgcrypt"
 
 #     OPENSSL_INCLUDES to the include directives required
 #     OPENSSL_LIBS to the -l directives required
