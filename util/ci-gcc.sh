@@ -12,6 +12,3 @@ export CFLAGS="-DTGL_AVOID_OPENSSL -w"
 autoconf
 ./configure && ${MAKE} -j`nproc` || ${MAKE}
 
-# Check if the binary runs at all
-bin/telegram-cli -h
-
