@@ -1,0 +1,45 @@
+https://stackoverflow.com/questions/40549318/error-invalid-use-of-incomplete-type-rsa-aka-struct-rsa-st-in-openssl-1-1
+#if OPENSSL_VERSION_NUMBER < 0x10100005L
+static void RSA_get0_key(const RSA *r, const BIGNUM **n, const BIGNUM **e, const BIGNUM **d, const BIGNUM **p, const BIGNUM **q)
+{
+    if(n != NULL)
+        *n = r->n;
+
+    if(e != NULL)
+        *e = r->e;
+
+    if(d != NULL)
+        *d = r->d;
+
+    if(p != NULL)
+        *p = r->p;
+
+    if(q != NULL)
+        *q = r->q;
+}
+#endif
+
+const BIGNUM *bn_p;
+const BIGNUM *bn_q;
+
+RSA_get0_key(key, NULL, NULL, NULL, &bn_p, &bn_q);
+/*   if( (prv->p==0 || prv->q==0) ) { */
+if( (prv_p==0 || prv_q==0) ) {
+
+
+
+
+
+
+After 1.1.1 OpenSSL Supports getter what return each parameter like this.
+
+const BIGNUM *RSA_get0_n(const RSA *d);
+const BIGNUM *RSA_get0_e(const RSA *d);
+const BIGNUM *RSA_get0_d(const RSA *d);
+const BIGNUM *RSA_get0_p(const RSA *d);
+const BIGNUM *RSA_get0_q(const RSA *d);
+const BIGNUM *RSA_get0_dmp1(const RSA *r);
+const BIGNUM *RSA_get0_dmq1(const RSA *r);
+const BIGNUM *RSA_get0_iqmp(const RSA *r);
+
+So if you don't need to considerate below version of OpenSSL less than 1.1.1 these code will make simple code. AND other structures support kind of this getter too. You can find more information of functions this. https://www.openssl.org/docs/man1.1.1/man3/
